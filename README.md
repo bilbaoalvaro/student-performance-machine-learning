@@ -1,73 +1,55 @@
 # Student Performance — Machine Learning
 
-Machine learning project focused on analysing and predicting academic
-performance in higher education.
+Machine learning project focused on analysing and predicting academic performance in higher education.
 
-The project combines supervised and unsupervised learning to study three
-different problems:
+The project studies three complementary problems:
 
-- Multiclass classification of students' academic status
-- Regression to predict second-semester academic performance
-- Unsupervised learning to identify groups of students
+- **Multiclass classification:** predicting students' academic status (`abandono`, `graduado`, `matriculado`).
+- **Regression:** predicting second-semester academic performance.
+- **Unsupervised learning:** exploring groups of students using PCA and K-Means.
 
-## Project Overview
+## Dataset
 
-The dataset contains information about students' academic background,
-personal characteristics and first-semester performance.
+The dataset contains information about students' academic background, personal characteristics and first-semester performance.
 
-Before modelling, the data is cleaned and checked for missing values,
-duplicates and potential inconsistencies. The classification target contains
-three classes:
-
-- Graduated
-- Enrolled
-- Dropout
-
-The classification dataset contains 4,403 students.
+The classification task uses **4,403 students** and three target classes.
 
 ## Methods
 
 ### Classification
 
-Two approaches were compared:
+Two approaches are compared:
 
 - K-Nearest Neighbors (KNN)
 - Multiclass Logistic Regression
 
-The models were evaluated using accuracy, macro F1-score and a confusion
-matrix.
-
-KNN was tuned using cross-validation, with **k = 20** selected as the final
-configuration.
+Models are evaluated using accuracy, macro F1-score and a confusion matrix. KNN is tuned using cross-validation, with **k = 20** selected for the final configuration.
 
 ### Regression
 
-The goal is to predict students' second-semester average grade.
+The regression task predicts students' second-semester average grade.
 
-The following approaches were compared:
+The project compares:
 
 - KNN Regression
 - Linear Regression
 - Polynomial Regression
-- Spline Regression
-- Interaction-based regression
+- Other regression variants explored during model selection
 
-Model selection was performed using cross-validation and the final models
-were evaluated on a separate test set.
+Cross-validation is used during model selection, and the final models are evaluated on a separate test set.
 
 ### Unsupervised Learning
 
 The project also explores student profiles without using the target variable.
 
-The analysis includes:
+This part includes:
 
 - Principal Component Analysis (PCA)
 - K-Means clustering
 - Silhouette analysis
-- Inertia analysis
+- Inertia / elbow analysis
 
-PCA was implemented manually and the number of components was selected based
-on explained variance.
+PCA and K-Means are implemented within the project using NumPy-based code.
 
 ## Results
 
@@ -78,8 +60,7 @@ on explained variance.
 | KNN (k = 20) | 0.741 | 0.641 |
 | Multiclass Logistic Regression | 0.734 | 0.587 |
 
-KNN achieved the best overall classification performance, particularly in
-macro F1-score.
+KNN gives the stronger result on the test set, particularly in macro F1-score.
 
 ### Regression
 
@@ -88,43 +69,60 @@ macro F1-score.
 | KNN Regression (k = 27) | 0.644 | 2.577 | 1.422 |
 | Polynomial Regression | 0.669 | 2.486 | 1.468 |
 
-Polynomial regression achieved the highest R² and lowest RMSE on the test set.
+Polynomial regression achieves the highest R² and lowest RMSE among the final models compared in the project.
 
 ### Clustering
 
-PCA reduced the original feature space to the number of components required
-to explain at least 80% of the variance.
-
-The best clustering solution among the tested values of k was **5 clusters**,
-selected using silhouette score as the main criterion and inertia as supporting
-evidence.
+The clustering analysis tests values of k from 2 to 6. The solution with **5 clusters** obtains the highest silhouette score among the tested values (`0.265`) and is selected as the final clustering solution.
 
 ## Implementation
 
-An important part of the project was implementing several algorithms and
-evaluation metrics directly rather than relying entirely on machine learning
-libraries.
+The repository contains course implementations and adaptations of the main algorithms and evaluation metrics used in the project, including:
 
-The repository includes implementations of:
-
-- KNN classification
-- KNN regression
+- KNN classification and regression
 - Multiclass logistic regression
 - Linear regression
-- Accuracy
-- Macro F1-score
-- MAE
-- RMSE
-- R²
+- Accuracy and macro F1
+- MAE, RMSE and R²
 - PCA
 - K-Means
 - Silhouette score
 
-## Technologies
+## Repository structure
 
-**Python · NumPy · Pandas · Matplotlib · Jupyter Notebook**
+```text
+student-performance-machine-learning/
+├── data/
+│   ├── README.md
+│   └── rendimiento_estudiantes.csv
+├── docs/
+│   └── project_report.pdf
+├── src/
+│   ├── __init__.py
+│   ├── knn.py
+│   ├── knn_regression.py
+│   ├── logistic_regression.py
+│   ├── metrics.py
+│   └── regression.py
+├── student_performance_analysis.ipynb
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
+
+## How to run
+
+1. Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Open `student_performance_analysis.ipynb` from the repository root.
+
+3. Run the notebook cells in order.
 
 ## Course
 
 **Machine Learning / Aprendizaje Automático**  
-Comillas ICAI — 2025/26
+Comillas ICAI · 2025/26
